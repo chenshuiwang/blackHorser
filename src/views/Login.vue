@@ -36,6 +36,7 @@
 <script>
 import hmbutton from '../components/hmbutton.vue'
 import hminput from '../components/hminput.vue'
+import {login} from '../apis/user.js'
 export default {
     components:{
         hmbutton,hminput
@@ -49,8 +50,25 @@ export default {
         }
     },
     methods:{
-        login(){
-            console.log(this.users)
+        async login(){
+            
+            if(/^(\d{5,6})$|^(1\d{10})$/.test(this.users.username) && /^\S{3,16}$/.test(this.users.password)){
+              let res = await login(this.users)
+              console.log(res)
+              if(res.data.message === '用户不存在'){
+                // 给出用户提示
+                this.$toast.fail(res.data.message)
+                }else{
+                    // 实现页面的跳转
+                    localStorage.setItem('login_token',res.data.data.token)
+                    // 为了后期的操作，将当前用户数据也存储到本地
+                    localStorage.setItem('userInfo',JSON.stringify(res.data.data.user))
+                    // 实现页面的跳转
+                    this.$router.push({name:'Personal'})
+                }
+            }else{
+              this.$toast.fail('用户输入不合法')
+            }
         },
         handleinput(data){
             this.users.username = data

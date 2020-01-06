@@ -6,3 +6,9 @@ export const login = (data)=>{
         data
     })
 }
+export const getUserById = (id)=>{
+    return axios({
+        url:`/user/${id}`,
+        //headers:{'Authorization':localStorage.getItem('login_token')}
+    })
+}

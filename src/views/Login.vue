@@ -37,6 +37,8 @@
 import hmbutton from '../components/hmbutton.vue'
 import hminput from '../components/hminput.vue'
 import {login} from '../apis/user.js'
+//import { get } from 'http'
+//import {getUserById} from '../views/Personal.vue'
 export default {
     components:{
         hmbutton,hminput
@@ -54,7 +56,7 @@ export default {
             
             if(/^(\d{5,6})$|^(1\d{10})$/.test(this.users.username) && /^\S{3,16}$/.test(this.users.password)){
               let res = await login(this.users)
-              console.log(res)
+              //console.log(res)
               if(res.data.message === '用户不存在'){
                 // 给出用户提示
                 this.$toast.fail(res.data.message)
@@ -64,7 +66,7 @@ export default {
                     // 为了后期的操作，将当前用户数据也存储到本地
                     localStorage.setItem('userInfo',JSON.stringify(res.data.data.user))
                     // 实现页面的跳转
-                    this.$router.push({name:'Personal'})
+                    this.$router.push({path:`/personal/${res.data.data.user.id}`})
                 }
             }else{
               this.$toast.fail('用户输入不合法')
@@ -73,6 +75,7 @@ export default {
         handleinput(data){
             this.users.username = data
         }
+        
     }
 }
 </script>

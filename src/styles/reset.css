@@ -22,3 +22,6 @@ q:before,q:after,
 blockquote:before,blockquote:after {
 	content: "";
 }
+a{
+	text-decoration: none;
+}

@@ -8,7 +8,7 @@
           <div class="name">
             <span class="iconfont iconxingbienan"></span>{{currentUser.nickname}}
           </div>
-          <div class="time">2019-9-24</div>
+          <div class="time">{{currentUser.create_date | dateFormat}}</div>
         </div>
         <span class="iconfont iconjiantou1"></span>
       </div>
@@ -25,6 +25,7 @@
 import hmcell from "../components/hmcell.vue";
 import hmbutton from '../components/hmbutton.vue'
 import {getUserById} from '../apis/user.js'
+import {dateFormat} from '../utils/myfilters.js'
 export default {
   components: {
     hmcell,hmbutton
@@ -37,11 +38,11 @@ export default {
   },
   async mounted() {
     let res = await getUserById(this.$route.params.id);
-    console.log(res);
+    //console.log(res);
     if (res.data.message === "获取成功") {
       this.currentUser = res.data.data;
        this.currentUser.head_img = 'http://127.0.0.1:3000' + this.currentUser.head_img
-       console.log(this.currentUser.head_img)
+       //console.log(this.currentUser.head_img)
 
     }else if(res.data.message === '用户信息验证失败'){
       this.$router.push({name:'Login'})
@@ -50,8 +51,11 @@ export default {
   methods:{
     exit(){
       localStorage.removeItem('login_token')
-      this.$router.push({name:'index'})
+      this.$router.push({path:'/'})
     }
+  },
+  filters:{
+    dateFormat
   }
 };
 </script>

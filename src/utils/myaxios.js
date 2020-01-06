@@ -17,7 +17,7 @@ axios.interceptors.request.use(function (config) {
 
 axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
-    console.log(response)
+    //console.log(response)
     if(response.data.message === '用户信息验证失败'){
         // this.$router.push({name:'Login'})
         window.location.href='#/login'

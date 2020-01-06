@@ -8,6 +8,7 @@ import Personal from '../views/Personal.vue'
 import EditPersonal from '../views/EditPersonal.vue'
 import Index from '../views/Index.vue'
 import Register from '../views/Register.vue'
+import Search from '../views/Search.vue'
 // 创建路由对象
 let router = new VueRouter({
     // 配置路由
@@ -21,6 +22,11 @@ let router = new VueRouter({
             name:'Register',
             path:'/register',
             component:Register
+        },
+        {
+            name:'Search',
+            path:'/search',
+            component:Search
         },
         {
             name:'Login',

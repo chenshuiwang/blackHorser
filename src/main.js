@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
 import './styles/reset.css'
-import {Button,Toast,Icon,Uploader,Dialog,Field,Picker} from 'vant'
+import {Button,Toast,Icon,Uploader,Dialog,Field,Picker,Tab,Tabs} from 'vant'
 Vue.use(Button)
    .use(Toast)
    .use(Uploader)
@@ -10,6 +10,8 @@ Vue.use(Button)
    .use(Field)
    .use(Icon)
    .use(Picker)
+   .use(Tab)
+   .use(Tabs)
 Vue.config.productionTip = false
 
 new Vue({

@@ -12,3 +12,10 @@ export const getUserById = (id)=>{
         //headers:{'Authorization':localStorage.getItem('login_token')}
     })
 }
+export const register = (data) =>{
+    return axios({
+        method:'post',
+        url:'/register',
+        data
+    })
+}

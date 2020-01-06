@@ -6,10 +6,22 @@ Vue.use(VueRouter)
 import Login from '../views/Login.vue'
 import Personal from '../views/Personal.vue'
 import EditPersonal from '../views/EditPersonal.vue'
+import Index from '../views/Index.vue'
+import Register from '../views/Register.vue'
 // 创建路由对象
 let router = new VueRouter({
     // 配置路由
     routes:[
+        {
+            name:'Index',
+            path:'/',
+            component:Index
+        },
+        {
+            name:'Register',
+            path:'/register',
+            component:Register
+        },
         {
             name:'Login',
             path:'/login',

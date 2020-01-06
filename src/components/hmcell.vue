@@ -1,6 +1,6 @@
 <template>
   <div class="cell" @click="handlerclick">
-      <div class="left">{{title}}</div>
+      <div class="left" >{{title}}</div>
       <div class="right">{{type==='password'?'*****':desc}}</div>
   </div>
 </template>

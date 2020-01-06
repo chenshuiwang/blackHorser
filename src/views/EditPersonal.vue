@@ -11,8 +11,17 @@
     <van-dialog v-model="nickshow" title="修改昵称" show-cancel-button @confirm='updateNickname'>
       <van-field ref='nick' :value="currentUser.nickname" placeholder="请输入昵称" required label="昵称" />
     </van-dialog>
-    <hmcell title="密码" :desc="currentUser.password" type="password"></hmcell>
-    <hmcell title="性别" :desc="currentUser.gender?'男':'女'"></hmcell>
+
+    <hmcell title="密码" :desc="currentUser.password" type="password" @click="passshow=!passshow"></hmcell>
+     <van-dialog v-model="passshow" title="修改密码" show-cancel-button @confirm='updatePassword'>
+      <van-field ref="originPass" placeholder="请输入原密码" required label="原密码" />
+      <van-field ref="newPass" placeholder="请输入新密码" required label="新密码" />
+    </van-dialog>
+
+    <hmcell title="性别" :desc="currentUser.gender===0?'女':'男'" @click="gendershow=!gendershow"></hmcell>
+    <van-dialog v-model="gendershow" title="修改性别" show-cancel-button @confirm = 'updateGender'>
+       <van-picker :columns="['女','男']" :default-index="currentUser.gender"  @change="onChange"/>
+    </van-dialog>
   </div>
 </template>
 
@@ -30,7 +39,9 @@ export default {
     return {
       currentUser: {},
       // 修改昵称对话框是否可见
-      nickshow: false
+      nickshow: false,
+      passshow: false,
+      gendershow: false
     };
   },
   async mounted() {
@@ -82,6 +93,39 @@ export default {
             this.$toast.fail('修改失败');
         }
     },
+    async updatePassword(){
+      console.log(this)
+      let originPass = this.$refs.originPass.$refs.input.value;
+      if(originPass === this.currentUser.password){
+        let newPass = this.$refs.newPass.$refs.input.value
+        if(/^\S{3,16}$/.test(newPass)){
+          let res = await updateUserById(this.currentUser.id,{
+            password:newPass
+          });
+          if(res.data.message === '修改成功'){
+            this.currentUser.password = newPass;
+            this.$toast.success('修改成功')
+          }else{
+            this.$toast.fail('修改失败')
+          }
+        }
+      }
+    },
+    async updateGender(){
+      let res = await updateUserById(this.currentUser.id,{
+        gender:this.gender
+      });
+      if(res.data.message == '修改成功'){
+        this.currentUser.gender = this.gender;
+        this.$toast.success('修改成功')
+      }else{
+        this.$toast.fail('注册失败')
+      }
+    },
+    onChange(picker,value,index){
+      this.$toast(`当前值：${value}，当前索引：${index}`);
+      this.gender = index
+    }
     
   }
 };

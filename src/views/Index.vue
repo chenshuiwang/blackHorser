@@ -25,7 +25,9 @@
             :immediate-check='false'
             :offset='10'
           >
-            <hmarticleblock v-for="item in cate.postList" :key="item.id" :post="item"></hmarticleblock>
+            <van-pull-refresh v-model="cate.isloading" @refresh='onRefresh'>
+              <hmarticleblock v-for="item in cate.postList" :key="item.id" :post="item"></hmarticleblock>
+            </van-pull-refresh>
           </van-list>
         </van-tab>
       </van-tabs>
@@ -63,7 +65,8 @@ export default {
         pageSize:5,
         pageIndex:1,
         loading:false,
-        finished:false
+        finished:false,
+        isloading:false
       }
     })
     //console.log(this.cateList)
@@ -84,16 +87,27 @@ export default {
         category: id
     })
     this.cateList[this.active].loading = false
+    this.cateList[this.active].isloading = false;
     if(res2.data.data.length < this.cateList[this.active].pageSize){
       this.cateList[this.active].finished = true;
     }
     this.cateList[this.active].postList.push(...res2.data.data);
     },
     onload(){
-      this.cateList[this.active].pageIndex++;
+      if(this.cateList[this.active].isloading === false){
+        this.cateList[this.active].pageIndex++;
+        setTimeout(()=>{
+          this.init()
+        },1000)
+      }
+    },
+    onRefresh(){
+      this.cateList[this.active].pageIndex = 1;
+      this.cateList[this.active].postList.length = 0;
       setTimeout(()=>{
         this.init()
-      },2000)
+      },1000)
+      this.cateList[this.active].finished = false;
     }
   }
 }

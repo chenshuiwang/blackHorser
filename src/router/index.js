@@ -9,6 +9,7 @@ import EditPersonal from '../views/EditPersonal.vue'
 import Index from '../views/Index.vue'
 import Register from '../views/Register.vue'
 import Search from '../views/Search.vue'
+import Test from '../views/test.vue'
 // 创建路由对象
 let router = new VueRouter({
     // 配置路由
@@ -42,6 +43,11 @@ let router = new VueRouter({
             name:'EditPersonal',
             path:'/editPersonal/:id',
             component:EditPersonal
+        },
+        {
+            name:'Test',
+            path:'/test',
+            component:Test
         }
     ]
 })

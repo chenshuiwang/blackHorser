@@ -19,3 +19,13 @@ export const register = (data) =>{
         data
     })
 }
+export const followUser = (id)=>{
+    return axios({
+        url:`/user_follows/${id}`
+    })
+}
+export const unfollowUser = (id)=>{
+    return axios({
+        url:`/user_unfollow/${id}`
+    })
+}

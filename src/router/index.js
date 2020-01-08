@@ -10,6 +10,7 @@ import Index from '../views/Index.vue'
 import Register from '../views/Register.vue'
 import Search from '../views/Search.vue'
 import Test from '../views/test.vue'
+import ArticleDetail from '../views/articleDetail.vue'
 // 创建路由对象
 let router = new VueRouter({
     // 配置路由
@@ -48,7 +49,12 @@ let router = new VueRouter({
             name:'Test',
             path:'/test',
             component:Test
-        }
+        },
+        {
+            name:'ArticleDetail',
+            path:'/articleDetail/:id',
+            component:ArticleDetail
+        },
     ]
 })
 router.beforeEach((to,from,next)=>{

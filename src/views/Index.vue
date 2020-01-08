@@ -26,7 +26,7 @@
             :offset='10'
           >
             <van-pull-refresh v-model="cate.isloading" @refresh='onRefresh'>
-              <hmarticleblock v-for="item in cate.postList" :key="item.id" :post="item"></hmarticleblock>
+              <hmarticleblock v-for="item in cate.postList" :key="item.id" :post="item" @click="$router.push({path:`/articleDetail/${item.id}`})"></hmarticleblock>
             </van-pull-refresh>
           </van-list>
         </van-tab>

@@ -1,5 +1,5 @@
 <template>
-  <div class="single" v-if="post.type===1 && post.cover.length <=2">
+  <div class="single" v-if="post.type===1 && post.cover.length <=2" @click="handleclick">
     <div class="left">
       <p class="content">{{post.title}}</p>
       <p class="info">
@@ -10,7 +10,7 @@
     <img :src="post.cover[0].url" alt />
   </div>
 
-  <div class="singlev" v-else-if="post.type==2">
+  <div class="singlev" v-else-if="post.type==2" @click="handleclick">
     <p class="content">{{post.title}}</p>
     <div class="playarea">
       <img :src="post.cover[0].url" alt />
@@ -24,7 +24,7 @@
     </p>
   </div>
 
-  <div class="singlet" v-else-if="post.type===1 && post.cover.length >=3">
+  <div class="singlet" v-else-if="post.type===1 && post.cover.length >=3" @click="handleclick">
     <p class="content">{{post.title}}</p>
     <div class="imgs">
       <img :src="item.url" v-for="item in post.cover" :key='item.id' alt />
@@ -38,7 +38,12 @@
 
 <script>
 export default {
-  props: ["post"]
+  props: ["post"],
+  methods:{
+    handleclick(event){
+      this.$emit('click',event)
+    }
+  }
 };
 </script>
 

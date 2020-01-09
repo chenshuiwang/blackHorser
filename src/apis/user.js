@@ -29,3 +29,8 @@ export const unfollowUser = (id)=>{
         url:`/user_unfollow/${id}`
     })
 }
+export const getUserFollows = ()=>{
+    return axios({
+        url:`/user_follows`
+    })
+}

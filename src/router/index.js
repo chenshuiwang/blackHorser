@@ -11,6 +11,9 @@ import Register from '../views/Register.vue'
 import Search from '../views/Search.vue'
 import Test from '../views/test.vue'
 import ArticleDetail from '../views/articleDetail.vue'
+import Myfollow from '../views/myfollow.vue'
+import Mystar from '../views/mystar.vue'
+import ArticleComment from '../views/articleComment.vue'
 // 创建路由对象
 let router = new VueRouter({
     // 配置路由
@@ -55,6 +58,21 @@ let router = new VueRouter({
             path:'/articleDetail/:id',
             component:ArticleDetail
         },
+        {
+            name:'Myfollow',
+            path:'/myfollow',
+            component:Myfollow
+        },
+        {
+            name:'Mystar',
+            path:'/mystar',
+            component:Mystar
+        },
+        {
+            name:'ArticleComment',
+            path:'/articleComment/:id',
+            component:ArticleComment
+        }
     ]
 })
 router.beforeEach((to,from,next)=>{

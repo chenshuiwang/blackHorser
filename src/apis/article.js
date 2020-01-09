@@ -15,3 +15,19 @@ export const likeArticle = (id)=>{
         url:`/post_like/${id}`
     })
 }
+export const starArticle =(id)=>{
+    return axios({
+        url:`/post_star/${id}`
+    })
+}
+export const getUserStars =()=>{
+    return axios({
+        url:`/user_star`
+    })
+}
+export const getCommentList =(id,params)=>{
+    return axios({
+        url:`/post_comment/${id}`,
+        params
+    })
+}

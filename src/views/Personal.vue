@@ -13,9 +13,9 @@
         <span class="iconfont iconjiantou1"></span>
       </div>
     </router-link>
-    <hmcell title="我的关注" desc="关注的用户"></hmcell>
+    <hmcell title="我的关注" desc="关注的用户" @click="$router.push({name:'Myfollow'})"></hmcell>
     <hmcell title="我的跟帖" desc="跟帖/回复"></hmcell>
-    <hmcell title="我的收藏" desc="文章/视频"></hmcell>
+    <hmcell title="我的收藏" desc="文章/视频" @click="$router.push({name:'Mystar'})"></hmcell>
     <hmcell title="设置"></hmcell>
     <hmbutton class="btn" @click="exit">退出</hmbutton>
   </div>
@@ -41,6 +41,7 @@ export default {
     //console.log(res);
     if (res.data.message === "获取成功") {
       this.currentUser = res.data.data;
+      this.currentUser.create_date = this.currentUser.create_date?this.currentUser.create_date:new Date()
        this.currentUser.head_img = 'http://127.0.0.1:3000' + this.currentUser.head_img
        //console.log(this.currentUser.head_img)
 

@@ -41,13 +41,18 @@
       </div>
       <div class="more">更多跟帖</div>
     </div>
+    <hmcommitFooter :post='article'></hmcommitFooter>
   </div>
 </template>
 
 <script>
 import {getArticleById,likeArticle} from '../apis/article.js'
 import {followUser,unfollowUser} from '../apis/user.js'
+import hmcommitFooter from '../components/hmcommitFooter.vue'
 export default {
+  components:{
+    hmcommitFooter
+  },
     data(){
         return {
             article:{}
@@ -175,7 +180,7 @@ export default {
 }
 .keeps {
   border-top: 5px solid #ddd;
-  padding: 0 15px;
+  padding: 0 15px 50px;
   > h2 {
     line-height: 50px;
     text-align: center;
@@ -226,4 +231,5 @@ export default {
     font-size: 13px;
   }
 }
+
 </style>

@@ -15,7 +15,7 @@
 <script>
 export default {
     name:'commentItem',
-    props:['parent']
+    props:['parent'],
 }
 </script>
 

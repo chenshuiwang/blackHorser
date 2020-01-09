@@ -11,37 +11,55 @@
             <p>{{comment.user.nickname}}</p>
             <span>2小时前</span>
           </div>
-          <span>回复</span>
+          <span @click='sendComment(comment)'>回复</span>
         </div>
         <hmCommentItem v-if="comment.parent" :parent='comment.parent'></hmCommentItem>
         <div class="text">{{comment.content}}</div>
       </div>
     </div>
+    <hmcommitFooter :post='article' @refresh="refresh" :obj='reply' @reset='reply=null'></hmcommitFooter>
   </div>
 </template>
 
 <script>
 import myheader from '../components/hmheader.vue'
-import {getCommentList} from '../apis/article.js'
+import {getCommentList,getArticleById} from '../apis/article.js'
 import hmCommentItem from '../components/hmCommentItem'
+import hmcommitFooter from '../components/hmcommitFooter.vue'
 export default {
     components:{
-        myheader,hmCommentItem
+        myheader,hmCommentItem,hmcommitFooter
     },
     data(){
         return {
-            commentList:[]
+            commentList:[],
+            article:{},
+            reply:null
         }
     },
     async mounted(){
-        let res = await getCommentList(this.$route.params.id,{pageSize:40,pageIndex:1})
-        console.log(res)
-        this.commentList = res.data.data.length>0?res.data.data:this.commentList
-    
-      this.commentList = this.commentList.map(value => {
-          value.user.head_img = 'http://127.0.0.1:3000' + value.user.head_img
-          return value
-      })
+        this.init()
+    },
+    methods:{
+        sendComment(comment){
+            this.reply = comment;
+        },
+        async init(){
+          let res = await getCommentList(this.$route.params.id,{pageSize:40,pageIndex:1})
+          //console.log(res)
+          let res2 = await getArticleById(this.$route.params.id)
+          this.article = res2.data.data;
+          this.commentList = res.data.data.length>0?res.data.data:this.commentList
+      
+          this.commentList = this.commentList.map(value => {
+              value.user.head_img = 'http://127.0.0.1:3000' + value.user.head_img
+              return value
+          })
+        },
+        refresh(){
+          this.init();
+          window.scrollTo(0,0);
+        }
     }
 }
 </script>

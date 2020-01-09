@@ -10,21 +10,30 @@
       <i class="iconfont iconfenxiang"></i>
     </div>
     <div class="inputcomment" v-show='isFocus'>
-        <textarea  ref='commtext' rows="5" @blur='isFocus = false'></textarea>
+        <textarea  ref='commtext' rows="5"></textarea>
         <div>
-            <span>发送</span>
+            <span @click="sendComment">发送</span>
+            <span @click='cancel'>取消</span>
         </div>
     </div>
   </div>
 </template>
 
 <script>
-import {starArticle} from '../apis/article.js'
+import {starArticle,replyComment} from '../apis/article.js'
+
 export default {
-    props:['post'],
+    props:['post','obj'],
   data () {
     return {
       isFocus: false
+    }
+  },
+  watch:{
+    obj(){
+      if(this.obj){
+        this.isFocus = true;
+      }
     }
   },
   methods: {
@@ -39,6 +48,32 @@ export default {
         console.log(res)
         this.post.has_star = !this.post.has_star;
         this.$toast.success(res.data.message);
+    },
+    async sendComment(){
+      //this.$emit('')
+      console.log(252525)
+      if(this.$refs.commtext.value.trim().length === 0){
+        this.$toast.fail('评论不能为空')
+        return;
+      }
+      let data = {
+        content:this.$refs.commtext.value
+      }
+      if(this.obj){
+        data.parent_id = this.obj.id
+      }
+      let res = await replyComment(this.post.id,data);
+      //console.log(res)
+      if(res.data.message === '评论发布成功'){
+        this.isFocus = false;
+        this.$refs.commtext.value = '';
+        this.$emit('refresh');
+        this.$toast.success('发布成功');
+      }
+    },
+    cancel(){
+      this.isFocus = false;
+      this.$emit('reset');
     }
   }
 
@@ -52,7 +87,6 @@ export default {
 .comment{
     position: fixed;
     bottom: 0;
-    
     width: 100vw;
     background-color: #fff;
     left: 0;

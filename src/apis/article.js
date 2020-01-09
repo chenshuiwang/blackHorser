@@ -31,3 +31,11 @@ export const getCommentList =(id,params)=>{
         params
     })
 }
+export const replyComment =(id,data)=>{
+    return axios({
+        method:'post',
+        url:`/post_comment/${id}`,
+        data
+    })
+}
+

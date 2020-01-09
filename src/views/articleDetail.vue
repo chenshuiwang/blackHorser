@@ -28,7 +28,7 @@
     <!-- 精彩跟帖 -->
     <div class="keeps">
       <h2>精彩跟帖</h2>
-      <div class="item">
+      <!-- <div class="item">
         <div class="head">
           <img :src="article.user&&article.user.head_img" alt />
           <div>
@@ -38,8 +38,9 @@
           <span>回复</span>
         </div>
         <div class="text">文章说得很有道理</div>
-      </div>
-      <div class="more">更多跟帖</div>
+      </div> -->
+      <div class="more" v-if="article.comment_length==0">还没有人评论</div>
+      <div class="more" v-if="article.comment_length">更多跟帖</div>
     </div>
     <hmcommitFooter :post='article'></hmcommitFooter>
   </div>

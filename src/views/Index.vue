@@ -11,7 +11,7 @@
       <div class="user" @click="$router.push({path:`/personal/${id}`})">
         <van-icon name="manager-o" />
       </div>
-      <span style="font-size:30px" @click="$router.push({name:'CateManager'})">+</span>
+      <!-- <span style="font-size:30px" @click="$router.push({name:'CateManager'})">+</span> -->
     </div>
     <div class="nav">
       <!-- sticky导航栏固定 -->
@@ -53,11 +53,18 @@ export default {
     }
   },
   async mounted(){
-    //console.log(this.active)
+    document.querySelector('.van-sticky').onclick = (e)=>{
+      
+      if(e.target.className === 'van-sticky'){
+        //console.log('1223')
+        this.$router.push({name:'CateManager'})
+      }
+      return false;
+    }
     this.id = JSON.parse(localStorage.getItem('userInfo')||"{}").id
     if(localStorage.getItem('cateList')){
       this.cateList = JSON.parse(localStorage.getItem('cateList'));
-      this.cateList.unshift(...[{id:1,name:'关注',is_top:1},{id:999,name:'头条',is_top:1}])
+      this.cateList.unshift(...[{id:0,name:'关注',is_top:1},{id:999,name:'头条',is_top:1}])
     }else{
       let res = await getCateList();
       this.cateList = res.data.data

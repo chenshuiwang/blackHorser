@@ -38,4 +38,10 @@ export const replyComment =(id,data)=>{
         data
     })
 }
+export const searchArticle =(params)=>{
+    return axios({
+        url:`/post_search`,
+        params
+    })
+}
 

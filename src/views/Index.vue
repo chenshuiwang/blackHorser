@@ -11,8 +11,8 @@
       <div class="user" @click="$router.push({path:`/personal/${id}`})">
         <van-icon name="manager-o" />
       </div>
+      <span style="font-size:30px" @click="$router.push({name:'CateManager'})">+</span>
     </div>
-
     <div class="nav">
       <!-- sticky导航栏固定 -->
       <van-tabs v-model="active" sticky swipeable>
@@ -55,9 +55,13 @@ export default {
   async mounted(){
     //console.log(this.active)
     this.id = JSON.parse(localStorage.getItem('userInfo')||"{}").id
-    let res = await getCateList();
-    //console.log(res)
-    this.cateList = res.data.data
+    if(localStorage.getItem('cateList')){
+      this.cateList = JSON.parse(localStorage.getItem('cateList'));
+      this.cateList.unshift(...[{id:1,name:'关注',is_top:1},{id:999,name:'头条',is_top:1}])
+    }else{
+      let res = await getCateList();
+      this.cateList = res.data.data
+    }
     this.cateList = this.cateList.map((value)=>{
       return{
         ...value,
@@ -108,7 +112,7 @@ export default {
         this.init()
       },1000)
       this.cateList[this.active].finished = false;
-    }
+    },
   }
 }
 </script>
@@ -140,5 +144,21 @@ export default {
     font-size: 25px;
     padding:0 10px;
   }
+  
 }
+/deep/.van-sticky{
+  padding-right: 50px;
+  &::after{
+    content: '+';
+    position: absolute;
+    width: 51px;
+    height: 44px;
+    background-color: #fff;
+    top: 0;
+    right: 0;
+    text-align: center;
+    line-height: 42px;
+    font-size: 35px;
+  }
+  }
 </style>

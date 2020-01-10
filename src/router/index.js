@@ -14,6 +14,7 @@ import ArticleDetail from '../views/articleDetail.vue'
 import Myfollow from '../views/myfollow.vue'
 import Mystar from '../views/mystar.vue'
 import ArticleComment from '../views/articleComment.vue'
+import CateManager from '../views/cateManager.vue'
 // 创建路由对象
 let router = new VueRouter({
     // 配置路由
@@ -72,6 +73,11 @@ let router = new VueRouter({
             name:'ArticleComment',
             path:'/articleComment/:id',
             component:ArticleComment
+        },
+        {
+            name:'CateManager',
+            path:'/cateManager',
+            component:CateManager
         }
     ]
 })

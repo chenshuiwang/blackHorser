@@ -1,12 +1,12 @@
 <template>
   <div class="commentItem">
-      <commentItem v-if="parent.parent" :parent='parent.parent'></commentItem>
+      <commentItem v-if="parent.parent" :parent='parent.parent'  @reply='sendComment'></commentItem>
       <div class="top">
           <div class="left">
               <span>{{parent.user.nickname}}</span>&nbsp;
               <span>2分钟前</span>
           </div>
-          <span>回复</span>
+          <span @click="sendComment(parent)">回复</span>
       </div>
       <div class="bottom">{{parent.content}}</div>
   </div>
@@ -16,6 +16,12 @@
 export default {
     name:'commentItem',
     props:['parent'],
+    methods:{
+        sendComment(comment){
+            //console.log(comment)
+            this.$emit('reply',comment)
+        }
+    }
 }
 </script>
 

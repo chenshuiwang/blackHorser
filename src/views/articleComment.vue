@@ -13,11 +13,11 @@
           </div>
           <span @click='sendComment(comment)'>回复</span>
         </div>
-        <hmCommentItem v-if="comment.parent" :parent='comment.parent'></hmCommentItem>
+        <hmCommentItem v-if="comment.parent" :parent='comment.parent' @reply='sendComment'></hmCommentItem>
         <div class="text">{{comment.content}}</div>
       </div>
     </div>
-    <hmcommitFooter :post='article' @refresh="refresh" :obj='reply' @reset='reply=null'></hmcommitFooter>
+    <hmcommitFooter :post='article' @refresh="refresh" :obj='reply' @reset='reply=null' @reply='sendComment'></hmcommitFooter>
   </div>
 </template>
 
@@ -50,7 +50,7 @@ export default {
           let res2 = await getArticleById(this.$route.params.id)
           this.article = res2.data.data;
           this.commentList = res.data.data.length>0?res.data.data:this.commentList
-      
+          //console.log(this.commentList)
           this.commentList = this.commentList.map(value => {
               value.user.head_img = 'http://127.0.0.1:3000' + value.user.head_img
               return value

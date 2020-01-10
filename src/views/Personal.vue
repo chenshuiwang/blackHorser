@@ -62,9 +62,10 @@ export default {
 </script>
 
 <style lang='less' scoped>
+
 .personal {
   width: 100vw;
-  height: 100vh;
+  height: 500px;
   background-color: #eee;
 }
 a {

@@ -12,8 +12,8 @@
     <div class="inputcomment" v-show='isFocus'>
         <textarea  ref='commtext' rows="5"></textarea>
         <div>
-            <span @click="sendComment">发送</span>
-            <span @click='cancel'>取消</span>
+            <span @click="sendComment" class="send">发送</span>
+            <span @click='cancel' class="cancel">取消</span>
         </div>
     </div>
   </div>
@@ -40,7 +40,9 @@ export default {
     //   获取焦点时触发
     handlerFocus () {
       this.isFocus = !this.isFocus
-      this.$refs.commtext.focus()
+      setTimeout(()=>{
+        this.$refs.commtext.focus()
+      },10)
     },
     async starThisArticle(){
         console.log(this.post.id)
@@ -106,7 +108,7 @@ export default {
         padding: 10px;
     }
     div{
-        padding: 20px;
+        padding-left: 20px;
     }
     span {
         display: block;
@@ -114,11 +116,18 @@ export default {
         height: 24px;
         line-height: 24px;
         padding: 0 10px;
-        background-color: #f00;
         color:#fff;
         text-align: center;
         border-radius: 6px;
         font-size: 13px;
+    }
+    .send{
+      position: absolute;
+      top: 10px;
+      background-color: green;
+    }
+    .cancel{
+      background-color: #f00;
     }
 }
 .addcomment {
